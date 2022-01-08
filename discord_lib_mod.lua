@@ -3257,7 +3257,7 @@ function DiscordLib:Window(text)
 				LabelTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 				LabelTitle.BackgroundTransparency = 1.000
 				LabelTitle.Position = UDim2.new(0, 5, 0, 0)
-				LabelTitle.Size = UDim2.new(0, 200, 0, 20)
+				LabelTitle.Size = UDim2.new(0, 200, 0, 10)
 				LabelTitle.Font = Enum.Font.Gotham
 				LabelTitle.Text = text
 				LabelTitle.TextColor3 = Color3.fromRGB(127, 131, 137)
