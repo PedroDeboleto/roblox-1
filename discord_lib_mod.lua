@@ -3265,6 +3265,12 @@ function DiscordLib:Window(text)
 				LabelTitle.TextXAlignment = Enum.TextXAlignment.Left
 
 				ChannelHolder.CanvasSize = UDim2.new(0,0,0,ChannelHolderLayout.AbsoluteContentSize.Y)
+				
+				local label_funcs = {}
+				function label_funcs:Set(text)
+					LabelTitle.Text = text
+				end
+				return label_funcs
 			end
 
 			function ChannelContent:Bind(text, presetbind, callback)
