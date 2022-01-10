@@ -1,3 +1,8 @@
+	local AllIDs = {}
+	local foundAnything = ""
+	local actualHour = os.date("!*t").hour
+	local Deleted = false
+
 local File = pcall(function()
 		AllIDs = S_H:JSONDecode(readfile("psx-server-hop-temp.json"))
 	end)
