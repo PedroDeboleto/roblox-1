@@ -5,10 +5,16 @@ local maxplrs = 30
 local lowestID
 while index do
     if index == 0 then index = "" end
-    local res = syn.request{
-        Url = "https://games.roblox.com/v1/games/"..tostring(game.PlaceId).."/servers/Public?sortOrder=Asc&limit=100&cursor="..index,
-        Method = "GET"
-    }
+    local res
+    if syn then
+        res = syn.request{
+            Url = "https://games.roblox.com/v1/games/"..tostring(game.PlaceId).."/servers/Public?sortOrder=Asc&limit=100&cursor="..index,
+            Method = "GET"
+        }
+    else
+        res = http_request({Url = "https://games.roblox.com/v1/games/"..tostring(game.PlaceId).."/servers/Public?sortOrder=Asc&limit=100&cursor="..index, Method = "GET"})
+    end
+   
     for i,v in next, js(res.Body).data do
         if v.playing < maxplrs then
             maxplrs = v.playing
