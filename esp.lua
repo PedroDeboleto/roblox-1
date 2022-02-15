@@ -3,7 +3,7 @@ local Player = game.Players.LocalPlayer
 local Camera = workspace.CurrentCamera
 local Mouse = Player:GetMouse()
 
-local function Dist(pointA, pointB)
+local function Dist(pointA, pointB) -- magnitude errors for some reason  : (
 	return math.sqrt(math.pow(pointA.X - pointB.X, 2) + math.pow(pointA.Y - pointB.Y, 2))
 end
 
@@ -112,7 +112,7 @@ end
 
 game.Players.PlayerAdded:Connect(function(v)
 	v.CharacterAdded:Connect(function()
-		print(v)
+		print("LKHUB | ESP |",v,"Added")
 		pcall(function()
 			esp(v)
 		end)
