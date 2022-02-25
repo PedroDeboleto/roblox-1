@@ -192,7 +192,7 @@ function module:DestroyESP()
     print("LKHUB | ESP Unloaded")
 end
 
-function module:Tracres(Value)
+function module:Traceres(Value)
     print("LKHUB | Tracers",(Value and "Enabled" or "Disabled"))
     
     tracers = Value
