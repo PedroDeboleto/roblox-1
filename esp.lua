@@ -197,5 +197,5 @@ function module:Traces(Value)
     
     tracers = Value
 end
-module:ESP()
-return module
+
+_G.module = module
