@@ -167,6 +167,7 @@ function module:ESP()
                         Tracer.From = Vector2.new(Camera.ViewportSize.X/2,Camera.ViewportSize.Y)
                         Tracer.To = Vector2.new(pos.X,pos.Y)
                         Tracer.Visible = true
+                        Tracer.Color = pl.TeamColor.Color
                     end
                 else 
                     Box.Visible = false
