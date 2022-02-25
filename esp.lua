@@ -101,78 +101,6 @@ function reloadESP()
 end
 
 local c
-c = game:GetService("RunService").RenderStepped:Connect(function()
-    for _,v in pairs(plrsToUPD) do
-        local pl = v.p
-        local Box = v.b
-        local Tracer = v.t
-
-        if pl.Team ~= nil and pl.Team == plr.Team then
-            Box.Visible = false
-            Tracer.Visible = false
-            plrsToUPD[_] = nil
-            continue
-        end
-
-        if pl.Character and pl.Character:FindFirstChildOfClass("Humanoid") and pl.Character:FindFirstChild("HumanoidRootPart") and pl.Character:FindFirstChildOfClass("Humanoid").Health > 0 and pl.Character:FindFirstChild("Head") then
-            local pos, OnScreen = Camera:WorldToViewportPoint(pl.Character.HumanoidRootPart.Position)
-            if OnScreen then 
-                --box esp
-                local points = {}
-                local c = 0
-                for _,v in pairs(pl.Character:GetChildren()) do
-                    if v:IsA("BasePart") then
-                        c = c + 1
-                        local p = Camera:WorldToViewportPoint(v.Position)
-                        if v.Name == "HumanoidRootPart" then
-                            p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(0, 0, -v.Size.Z)).p)
-                        elseif v.Name == "Head" then
-                            p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(0, v.Size.Y/2, v.Size.Z/1.25)).p)
-                        elseif string.match(v.Name, "Left") then
-                            p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(-v.Size.X/2, 0, 0)).p)
-                        elseif string.match(v.Name, "Right") then
-                            p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(v.Size.X/2, 0, 0)).p)
-                        end
-                        points[c] = p
-                    end
-                end
-                local Left = GetClosest(points, Vector2.new(0, pos.Y))
-                local Right = GetClosest(points, Vector2.new(Camera.ViewportSize.X, pos.Y))
-                local Top = GetClosest(points, Vector2.new(pos.X, 0))
-                local Bottom = GetClosest(points, Vector2.new(pos.X, Camera.ViewportSize.Y))
-
-                if Left ~= nil and Right ~= nil and Top ~= nil and Bottom ~= nil then
-                    Box.PointA = Vector2.new(Right.X, Top.Y)
-                    Box.PointB = Vector2.new(Left.X, Top.Y)
-                    Box.PointC = Vector2.new(Left.X, Bottom.Y)
-                    Box.PointD = Vector2.new(Right.X, Bottom.Y)
-
-                    Box.Visible = true
-                    Box.Color = pl.TeamColor.Color
-                else 
-                    Box.Visible = false
-                end
-
-                --tracers
-
-                if tracers then
-                    Tracer.From = Vector2.new(Camera.ViewportSize.X/2,Camera.ViewportSize.Y)
-                    Tracer.To = Vector2.new(pos.X,pos.Y)
-                    Tracer.Visible = true
-                end
-            else 
-                Box.Visible = false
-                Tracer.Visible = false
-            end
-        else
-            Box.Visible = false
-            Tracer.Visible = false
-            if not plrs:FindFirstChild(pl) then
-                plrsToUPD[_] = nil
-            end
-        end
-    end
-end)
 
 function module:ESP()
     print("LKHUB | ESP Loaded")
@@ -180,6 +108,79 @@ function module:ESP()
 
     plrs.PlayerAdded:Connect(reloadESP)
     plrs.PlayerRemoving:Connect(reloadESP)
+
+    c = game:GetService("RunService").RenderStepped:Connect(function()
+        for _,v in pairs(plrsToUPD) do
+            local pl = v.p
+            local Box = v.b
+            local Tracer = v.t
+    
+            if pl.Team ~= nil and pl.Team == plr.Team then
+                Box.Visible = false
+                Tracer.Visible = false
+                plrsToUPD[_] = nil
+                continue
+            end
+    
+            if pl.Character and pl.Character:FindFirstChildOfClass("Humanoid") and pl.Character:FindFirstChild("HumanoidRootPart") and pl.Character:FindFirstChildOfClass("Humanoid").Health > 0 and pl.Character:FindFirstChild("Head") then
+                local pos, OnScreen = Camera:WorldToViewportPoint(pl.Character.HumanoidRootPart.Position)
+                if OnScreen then 
+                    --box esp
+                    local points = {}
+                    local c = 0
+                    for _,v in pairs(pl.Character:GetChildren()) do
+                        if v:IsA("BasePart") then
+                            c = c + 1
+                            local p = Camera:WorldToViewportPoint(v.Position)
+                            if v.Name == "HumanoidRootPart" then
+                                p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(0, 0, -v.Size.Z)).p)
+                            elseif v.Name == "Head" then
+                                p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(0, v.Size.Y/2, v.Size.Z/1.25)).p)
+                            elseif string.match(v.Name, "Left") then
+                                p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(-v.Size.X/2, 0, 0)).p)
+                            elseif string.match(v.Name, "Right") then
+                                p = Camera:WorldToViewportPoint((v.CFrame * CFrame.new(v.Size.X/2, 0, 0)).p)
+                            end
+                            points[c] = p
+                        end
+                    end
+                    local Left = GetClosest(points, Vector2.new(0, pos.Y))
+                    local Right = GetClosest(points, Vector2.new(Camera.ViewportSize.X, pos.Y))
+                    local Top = GetClosest(points, Vector2.new(pos.X, 0))
+                    local Bottom = GetClosest(points, Vector2.new(pos.X, Camera.ViewportSize.Y))
+    
+                    if Left ~= nil and Right ~= nil and Top ~= nil and Bottom ~= nil then
+                        Box.PointA = Vector2.new(Right.X, Top.Y)
+                        Box.PointB = Vector2.new(Left.X, Top.Y)
+                        Box.PointC = Vector2.new(Left.X, Bottom.Y)
+                        Box.PointD = Vector2.new(Right.X, Bottom.Y)
+    
+                        Box.Visible = true
+                        Box.Color = pl.TeamColor.Color
+                    else 
+                        Box.Visible = false
+                    end
+    
+                    --tracers
+    
+                    if tracers then
+                        Tracer.From = Vector2.new(Camera.ViewportSize.X/2,Camera.ViewportSize.Y)
+                        Tracer.To = Vector2.new(pos.X,pos.Y)
+                        Tracer.Visible = true
+                    end
+                else 
+                    Box.Visible = false
+                    Tracer.Visible = false
+                end
+            else
+                Box.Visible = false
+                Tracer.Visible = false
+                if not plrs:FindFirstChild(pl) then
+                    plrsToUPD[_] = nil
+                end
+            end
+        end
+    end)    
 end
 
 function module:DestroyESP()
