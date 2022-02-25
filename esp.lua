@@ -188,6 +188,7 @@ function module:DestroyESP()
     c:Disconnect()
     for _,v in pairs(plrsToUPD) do
         v.b.Visible = false
+        v.t.Visible = false
     end
     plrsToUPD = {}
     print("LKHUB | ESP Unloaded")
