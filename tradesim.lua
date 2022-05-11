@@ -1,4 +1,4 @@
---loadstring(game:HttpGet("https://rawscripts.net/raw/Slap-Battles-***-Mode-Killstreak-Reach-Aura-bob-2425"))()
+--loadstring(game:HttpGet("https://rawscripts.net/raw/Trade-Simulator-Item-Sniper-New-Item-Buyer(1-serials-easily)-2567"))()
 
 
 
