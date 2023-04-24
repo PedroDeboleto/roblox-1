@@ -74,7 +74,7 @@ for i,v in pairs(game.Players:GetPlayers()) do
 end
 
 local qot = syn and syn.queue_on_teleport or queue_on_teleport
-if qot then qot("loadstring(game:HttpGet('https://raw.githubusercontent.com/LeoKholYt/roblox/sb_topglove.lua'))()") end
+if qot then qot("loadstring(game:HttpGet('https://raw.githubusercontent.com/LeoKholYt/roblox/main/sb_topglove.lua'))()") end
 
 function Teleport(placeId)
     writefile("popular_gloves.json", S_H:JSONEncode(gloves))
